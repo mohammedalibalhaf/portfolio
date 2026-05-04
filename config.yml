@@ -1,0 +1,54 @@
+# Netlify CMS Configuration
+backend:
+  name: git-gateway
+  branch: main  # Branch to update (optional)
+
+# Admin UI Settings
+logo_url: https://via.placeholder.com/150x50/38bdf8/ffffff?text=Portfolio
+site_url: https://your-netlify-site.netlify.app  # Update after deploy
+display_url: https://your-netlify-site.netlify.app
+
+# Collections = Content Sections You Can Edit
+collections:
+  - name: "about"
+    label: "About Section"
+    folder: "content/about"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Intro", name: "intro", widget: "text", default: "Passionate IoT Engineer..."}
+      - {label: "Bio", name: "bio", widget: "markdown", default: "Strong foundation in embedded systems..."}
+      - {label: "Career Goal", name: "goal", widget: "text", default: "Aspiring IoT Engineer seeking internships..."}
+
+  - name: "contact" 
+    label: "Contact Info"
+    folder: "content/contact"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Email", name: "email", widget: "string", default: "mohammed.ali@example.com"}
+      - {label: "Phone", name: "phone", widget: "string", default: "+123 456 7890"}
+      - {label: "LinkedIn", name: "linkedin", widget: "string"}
+      - {label: "GitHub", name: "github", widget: "string"}
+
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Image URL", name: "image", widget: "image", default: "https://via.placeholder.com/400x250"}
+      - label: "Technologies"
+        name: "tech"
+        widget: "list"
+        fields:
+          - {label: "Tech", name: "tech", widget: "string"}
+      - {label: "GitHub Link", name: "github", widget: "string"}
+      - {label: "Live Demo", name: "demo", widget: "string"}
+
+media_folder: "assets/images"  # Where CMS uploads images
+public_folder: "/assets/images" 
+
+publish_mode: editorial_workflow  # Draft/Publish workflow
