@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Gas Leakage Detection System",
+    "description": "Real-time MQ-2 sensor based gas detection with buzzer alert and Android app notification using ESP32.",
+    "image": "https://via.placeholder.com/400x250/0f172a/38bdf8?text=Gas+Leak+Detector",
+    "tech": ["ESP32", "Arduino IDE", "C++"],
+    "github": "https://github.com/yourusername/gas-detector",
+    "demo": "https://gas-detector-demo.netlify.app"
+  },
+  {
+    "title": "Weather Monitoring System", 
+    "description": "DHT11 sensor data displayed on web dashboard with charts, hosted on ESP32 web server.",
+    "image": "https://via.placeholder.com/400x250/0f172a/38bdf8?text=Weather+Monitor",
+    "tech": ["ESP32", "HTML/CSS/JS", "Chart.js"],
+    "github": "https://github.com/yourusername/weather-monitor",
+    "demo": "https://weather-dashboard.netlify.app"
+  },
+  {
+    "title": "ESP32 Temperature Monitor",
+    "description": "Remote temperature monitoring with LCD display and Blynk IoT app integration.",
+    "image": "https://via.placeholder.com/400x250/0f172a/38bdf8?text=Temp+Monitor",
+    "tech": ["ESP32", "Blynk IoT", "Arduino"],
+    "github": "https://github.com/yourusername/temp-monitor", 
+    "demo": "#"
+  },
+  {
+    "title": "Smart Home Automation",
+    "description": "Voice-controlled home automation using Google Assistant and ESP8266 relays.",
+    "image": "https://via.placeholder.com/400x250/0f172a/38bdf8?text=Smart+Home",
+    "tech": ["ESP8266", "Google Assistant", "IFTTT"],
+    "github": "https://github.com/yourusername/smart-home",
+    "demo": "#"
+  }
+]
