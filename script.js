@@ -1,271 +1,190 @@
-// Mobile Navigation Toggle
+// ================= MOBILE MENU =================
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
 
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
 
-// Close mobile menu when clicking on a link
-navLinks.forEach(link => {
+document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
     });
 });
 
-// Dark/Light Mode Toggle
+
+// ================= THEME TOGGLE =================
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 
-const setTheme = (theme) => {
+function setTheme(theme) {
     body.classList.toggle('dark', theme === 'dark');
     localStorage.setItem('theme', theme);
-    themeToggle.querySelector('i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-};
 
-const currentTheme = localStorage.getItem('theme') || 'light';
-setTheme(currentTheme);
+    const icon = themeToggle.querySelector('i');
+    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+setTheme(localStorage.getItem('theme') || 'dark');
 
 themeToggle.addEventListener('click', () => {
     const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
     setTheme(newTheme);
 });
 
-// Smooth Scrolling (enhanced)
+
+// ================= SMOOTH SCROLL =================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        if (!target) return;
+
+        e.preventDefault();
+        target.scrollIntoView({
+            behavior: 'smooth'
+        });
     });
 });
 
-// Enhanced Netlify Forms Handler with File Upload
-const contactForm = document.querySelector('form[name="contact"]');
+
+// ================= CONTACT FORM =================
+const form = document.querySelector('form[name="contact"]');
 const submitBtn = document.getElementById('submit-btn');
 const formMessage = document.getElementById('form-message');
-const errorElements = document.querySelectorAll('.error-message');
 
-// Clear previous errors and messages
-function clearMessages() {
-    errorElements.forEach(el => el.textContent = '');
-    formMessage.className = 'form-message';
-    formMessage.textContent = '';
+function showMessage(msg, type) {
+    formMessage.textContent = msg;
+    formMessage.className = `form-message ${type}`;
 }
 
-// Validate individual fields
-function validateField(field, errorEl, validationFn, errorMsg) {
-    if (!validationFn(field.value.trim())) {
-        errorEl.textContent = errorMsg;
-        field.focus();
-        return false;
-    }
-    errorEl.textContent = '';
-    return true;
-}
-
-// Field validation functions
-const validators = {
-    name: (value) => value.length >= 2,
-    email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-    message: (value) => value.length >= 10,
-    attachment: (value) => {
-        const file = field.files[0];
-        if (!file) return true; // Optional
-        return file.size <= 10 * 1024 * 1024; // 10MB
-    }
-};
-
-// Enhanced form validation and submission for Netlify
-contactForm.addEventListener('submit', async (e) => {
+form.addEventListener('submit', (e) => {
     e.preventDefault();
-    
-    clearMessages();
-    let isValid = true;
-    
-    // Validate required fields
-    if (!validateField(
-        document.getElementById('name'), 
-        document.getElementById('name-error'),
-        validators.name, 
-        'Name must be at least 2 characters'
-    )) isValid = false;
-    
-    if (!validateField(
-        document.getElementById('email'), 
-        document.getElementById('email-error'),
-        validators.email, 
-        'Please enter a valid email address'
-    )) isValid = false;
-    
-    const messageField = document.getElementById('message');
-    if (!validateField(
-        messageField, 
-        document.getElementById('message-error'),
-        validators.message, 
-        'Message must be at least 10 characters'
-    )) isValid = false;
-    
-    // Validate file upload
-    const fileField = document.getElementById('attachment');
-    const fileError = document.getElementById('file-error');
-    const file = fileField.files[0];
-    if (file && file.size > 10 * 1024 * 1024) {
-        fileError.textContent = 'File size must be under 10MB';
-        isValid = false;
-    }
-    
-    // Check honeypot (spam protection)
-    const honeypot = document.querySelector('input[name="bot-field"]').value;
-    if (honeypot) {
-        formMessage.textContent = 'Spam detected. Please try again.';
-        formMessage.className = 'form-message error';
+
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+    const file = document.getElementById('attachment').files[0];
+
+    // Validation
+    if (name.value.trim().length < 2) {
+        showMessage("Name too short", "error");
         return;
     }
-    
-    if (isValid) {
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.querySelector('.btn-text').style.display = 'none';
-        submitBtn.querySelector('.btn-loading').style.display = 'inline';
-        
-        try {
-            // For Netlify Forms - disable preventDefault to allow native submission
-            // Form will POST to Netlify endpoint automatically
-            contactForm.removeAttribute('novalidate');
-            
-            // Create FormData for potential AJAX (optional for full control)
-            const formData = new FormData(contactForm);
-            
-            // Netlify handles the submission natively with proper attributes
-            // For demo/local testing, simulate success
-            setTimeout(() => {
-                formMessage.textContent = '✅ Thank you! Your message and file have been sent successfully. I\'ll respond within 24 hours.';
-                formMessage.className = 'form-message success';
-                contactForm.reset();
-                submitBtn.disabled = false;
-                submitBtn.querySelector('.btn-text').style.display = 'inline';
-                submitBtn.querySelector('.btn-loading').style.display = 'none';
-            }, 1500);
-            
-        } catch (error) {
-            formMessage.textContent = '❌ Submission failed. Please try again or email me directly.';
-            formMessage.className = 'form-message error';
-            submitBtn.disabled = false;
-            submitBtn.querySelector('.btn-text').style.display = 'inline';
-            submitBtn.querySelector('.btn-loading').style.display = 'none';
-        }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        showMessage("Invalid email", "error");
+        return;
     }
-});
 
-// Real-time validation on input
-['name', 'email', 'message', 'attachment'].forEach(fieldId => {
-    const field = document.getElementById(fieldId);
-    field.addEventListener('blur', () => {
-        if (fieldId !== 'attachment') {
-            const errorEl = document.getElementById(fieldId + '-error');
-            validateField(field, errorEl, validators[fieldId], '');
-        }
-    });
-    
-    if (fieldId === 'attachment') {
-        field.addEventListener('change', () => {
-            const file = field.files[0];
-            const errorEl = document.getElementById('file-error');
-            if (file && file.size > 10 * 1024 * 1024) {
-                errorEl.textContent = 'File too large (max 10MB)';
-            } else {
-                errorEl.textContent = '';
-            }
-        });
+    if (message.value.trim().length < 10) {
+        showMessage("Message too short", "error");
+        return;
     }
+
+    if (file && file.size > 10 * 1024 * 1024) {
+        showMessage("File must be < 10MB", "error");
+        return;
+    }
+
+    // Loading state
+    submitBtn.disabled = true;
+    submitBtn.querySelector('.btn-text').style.display = 'none';
+    submitBtn.querySelector('.btn-loading').style.display = 'inline';
+
+    // Simulate send (Netlify will handle real submit)
+    setTimeout(() => {
+        showMessage("✅ Message sent successfully!", "success");
+        form.reset();
+
+        submitBtn.disabled = false;
+        submitBtn.querySelector('.btn-text').style.display = 'inline';
+        submitBtn.querySelector('.btn-loading').style.display = 'none';
+    }, 1500);
 });
 
-// Accessibility: Focus management
-contactForm.addEventListener('focusin', (e) => {
-    e.target.parentElement.classList.add('focused');
-});
 
-contactForm.addEventListener('focusout', (e) => {
-    e.target.parentElement.classList.remove('focused');
-});
-
-// Animate Progress Bars & Fade-ins on Scroll
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
+// ================= SCROLL ANIMATIONS =================
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Fade-in animation
             entry.target.classList.add('visible');
-            
-            // Progress bars
-            const progressBars = entry.target.querySelectorAll('.progress');
-            progressBars.forEach(bar => {
-                const width = bar.getAttribute('data-width');
-                bar.style.width = width + '%';
+
+            // Animate progress bars
+            entry.target.querySelectorAll('.progress').forEach(bar => {
+                bar.style.width = bar.dataset.width + '%';
             });
         }
     });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-// Observe all sections and skill items
-document.querySelectorAll('section, .skill-item, .education-card, .project-card, .timeline-item').forEach(el => {
-    el.classList.add('fade-in');
+document.querySelectorAll('section, .skill-item, .project-card, .education-card').forEach(el => {
     observer.observe(el);
 });
 
-// Navbar background on scroll
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255,255,255,0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-    } else {
-        navbar.style.background = 'rgba(255,255,255,0.95)';
-        navbar.style.boxShadow = 'none';
-    }
-    
-    if (body.classList.contains('dark')) {
-        navbar.style.background = 'rgba(15,23,42,0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.2)';
-    }
-});
 
-// Active nav link on scroll
-let lastId;
+// ================= NAVBAR + ACTIVE LINK =================
 const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
 
 window.addEventListener('scroll', () => {
-    const fromTop = window.scrollY + 100;
-    
+    const scrollY = window.scrollY + 120;
+
+    // Navbar background
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.backdropFilter = 'blur(10px)';
+        navbar.style.background = body.classList.contains('dark')
+            ? 'rgba(15,23,42,0.9)'
+            : 'rgba(255,255,255,0.9)';
+    }
+
+    // Active link
     sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
         const id = section.getAttribute('id');
-        
-        if (fromTop >= sectionTop && fromTop < sectionTop + sectionHeight) {
-            if (lastId !== id) {
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                document.querySelectorAll(".progress").forEach((bar) => {
-  bar.style.width = bar.getAttribute("data-width") + "%";
-});
-                document.querySelector(`.nav-link[href="#${id}"]`).classList.add('active');
-                lastId = id;
-            }
+
+        if (scrollY >= top && scrollY < top + height) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (activeLink) activeLink.classList.add('active');
         }
     });
 });
+
+
+// ================= TYPING EFFECT =================
+const typingEl = document.querySelector('.typing');
+
+if (typingEl) {
+    const words = ["IoT Engineer", "ESP32 Developer", "Web Developer"];
+    let i = 0, j = 0, current = "", deleting = false;
+
+    function type() {
+        current = words[i];
+
+        if (!deleting) {
+            typingEl.textContent = current.substring(0, j++);
+            if (j > current.length) {
+                deleting = true;
+                setTimeout(type, 1000);
+                return;
+            }
+        } else {
+            typingEl.textContent = current.substring(0, j--);
+            if (j === 0) {
+                deleting = false;
+                i = (i + 1) % words.length;
+            }
+        }
+
+        setTimeout(type, deleting ? 50 : 100);
+    }
+
+    type();
+}
