@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mohammed Ali - IoT Engineer</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Mohammed Ali | Portfolio</title>
 
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo">Mohammed <span>Ali</span></div>
+    <div class="nav-logo">Mohammed <span>Ali</span></div>
 
     <ul class="nav-menu">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
 
     <div class="hamburger">
@@ -35,99 +32,83 @@
 
 <!-- HERO -->
 <section id="home" class="hero">
-  <div class="hero-content" data-aos="fade-up">
-    <h1>Mohammed <span>Ali</span></h1>
-    <h2 class="typing"></h2>
-    <p>ECE Student @ Chandigarh University | IoT + Embedded Systems</p>
+  <div>
+    <h1 class="hero-title">Mohammed Ali</h1>
 
-    <div class="buttons">
-      <a href="#projects" class="btn primary">View Work</a>
-      <a href="#contact" class="btn outline">Hire Me</a>
+    <p class="hero-subtitle">
+      <span id="typing"></span>
+      <span class="cursor">|</span>
+    </p>
+
+    <p class="hero-tagline">
+      Building smart IoT systems & modern web apps
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-secondary">Contact</a>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <h2>About Me</h2>
-    <p>
-      Passionate IoT developer with strong skills in embedded systems, ESP32, and web development.
-    </p>
-    <p><strong>Tech Stack:</strong> HTML, CSS, JS, Arduino, ESP32, C/C++</p>
-  </div>
+<section id="about" class="container">
+  <h2>About Me</h2>
+  <p>
+    IoT enthusiast with strong skills in embedded systems, ESP32, and web development.
+  </p>
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <h2>Skills</h2>
+<section id="skills" class="container">
+  <h2>Skills</h2>
 
-    <div class="skills-grid">
+  <div class="skills-grid">
+    <div class="skill-item">
+      HTML / CSS / JS
+      <div class="progress-bar"><div class="progress" data-width="90"></div></div>
+    </div>
 
-      <div class="skill">
-        <p>HTML/CSS/JS - 90%</p>
-        <div class="bar"><div style="width:90%"></div></div>
-      </div>
+    <div class="skill-item">
+      Arduino / ESP32
+      <div class="progress-bar"><div class="progress" data-width="85"></div></div>
+    </div>
 
-      <div class="skill">
-        <p>Arduino/ESP32 - 85%</p>
-        <div class="bar"><div style="width:85%"></div></div>
-      </div>
-
-      <div class="skill">
-        <p>C/C++ - 80%</p>
-        <div class="bar"><div style="width:80%"></div></div>
-      </div>
-
+    <div class="skill-item">
+      C / C++
+      <div class="progress-bar"><div class="progress" data-width="80"></div></div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <h2>Projects</h2>
+<section id="projects" class="container">
+  <h2>Projects</h2>
 
-    <div class="projects">
+  <div class="projects-grid">
+    <div class="project-card">
+      <h3>Gas Detection System</h3>
+      <p>MQ-2 + ESP32 real-time monitoring system</p>
+    </div>
 
-      <div class="card">
-        <h3>Gas Leakage Detector</h3>
-        <p>ESP32 + MQ-2 gas sensor with real-time alerts</p>
-      </div>
-
-      <div class="card">
-        <h3>Weather Monitoring System</h3>
-        <p>DHT11 sensor with web dashboard</p>
-      </div>
-
+    <div class="project-card">
+      <h3>Weather Monitoring</h3>
+      <p>ESP32 + Web dashboard with charts</p>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <h2>Contact</h2>
-
-    <p>Email: yourrealemail@gmail.com</p>
-    <p>GitHub: github.com/yourusername</p>
-
-  </div>
+<section id="contact" class="container">
+  <h2>Contact</h2>
+  <p>Email: mohammed.ali@example.com</p>
 </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Mohammed Ali</p>
+<footer class="footer">
+  © 2026 Mohammed Ali
 </footer>
 
 <script src="script.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init({
-    duration: 1000,
-    once: true
-  });
-</script>
+
 </body>
 </html>
