@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohammed Ali - IoT Engineer</title>
@@ -34,14 +35,14 @@
 
 <!-- HERO -->
 <section id="home" class="hero">
-  <div class="hero-content">
+  <div class="hero-content" data-aos="fade-up">
     <h1>Mohammed <span>Ali</span></h1>
-    <h2>IoT Engineer & Web Developer</h2>
-    <p>ECE Student at Chandigarh University | Building smart IoT systems</p>
+    <h2 class="typing"></h2>
+    <p>ECE Student @ Chandigarh University | IoT + Embedded Systems</p>
 
     <div class="buttons">
-      <a href="#projects" class="btn primary">Projects</a>
-      <a href="#contact" class="btn outline">Contact</a>
+      <a href="#projects" class="btn primary">View Work</a>
+      <a href="#contact" class="btn outline">Hire Me</a>
     </div>
   </div>
 </section>
@@ -121,5 +122,12 @@
 </footer>
 
 <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
 </body>
 </html>
