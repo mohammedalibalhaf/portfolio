@@ -260,6 +260,9 @@ window.addEventListener('scroll', () => {
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
                 });
+                document.querySelectorAll(".progress").forEach((bar) => {
+  bar.style.width = bar.getAttribute("data-width") + "%";
+});
                 document.querySelector(`.nav-link[href="#${id}"]`).classList.add('active');
                 lastId = id;
             }
